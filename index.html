@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0d1b2a">
+  <meta name="description" content="Seu espaço pessoal para tarefas, metas, calendário e lembretes.">
+  <title>JP Meneses Workspace</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./assets/icons/icon-192.png">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">JP</div>
+        <div><strong>JP Meneses</strong><span>WORKSPACE</span></div>
+      </div>
+      <button id="installBtn" class="install-btn" hidden>＋ Instalar</button>
+    </header>
+
+    <main>
+      <section id="page-home" class="page active">
+        <div class="welcome">
+          <div><p class="eyebrow" id="todayLabel">SEU ESPAÇO PESSOAL</p>
+            <h1>Vamos organizar<br><span>seu dia?</span></h1>
+            <p class="muted">Um passo de cada vez. Seus planos começam aqui.</p>
+          </div>
+          <div class="welcome-orb">JP</div>
+        </div>
+        <div class="stats-grid">
+          <article class="stat-card"><span>Tarefas abertas</span><strong id="openCount">0</strong><small>para concluir</small></article>
+          <article class="stat-card"><span>Metas ativas</span><strong id="goalCount">0</strong><small>em andamento</small></article>
+          <article class="stat-card"><span>Próximos lembretes</span><strong id="reminderCount">0</strong><small>registrados</small></article>
+        </div>
+        <div class="section-heading"><div><p class="eyebrow">ACOMPANHAMENTO</p><h2>Hoje</h2></div><button class="text-btn" data-go="tasks">Ver tarefas →</button></div>
+        <div id="todayTasks" class="stack empty-state">Nenhuma tarefa para hoje. Aproveite para planejar!</div>
+        <div class="section-heading"><div><p class="eyebrow">NÃO PERCA DE VISTA</p><h2>Próximos compromissos</h2></div><button class="text-btn" data-go="reminders">Ver todos →</button></div>
+        <div id="upcoming" class="stack empty-state">Nenhum compromisso cadastrado.</div>
+      </section>
+
+      <section id="page-tasks" class="page">
+        <div class="page-intro"><p class="eyebrow">ORGANIZE SUA ROTINA</p><h1>Minhas tarefas</h1><p class="muted">Transforme planos em pequenas ações.</p></div>
+        <form id="taskForm" class="panel form-grid">
+          <label>Nova tarefa<input id="taskTitle" required maxlength="100" placeholder="Ex.: Estudar JavaScript"></label>
+          <div class="two-cols"><label>Data<input id="taskDate" type="date"></label><label>Prioridade<select id="taskPriority"><option value="normal">Normal</option><option value="high">Alta</option><option value="low">Baixa</option></select></label></div>
+          <button class="primary-btn" type="submit">＋ Adicionar tarefa</button>
+        </form>
+        <div class="filter-row"><button class="filter active" data-filter="all">Todas</button><button class="filter" data-filter="open">Pendentes</button><button class="filter" data-filter="done">Concluídas</button></div>
+        <div id="taskList" class="stack"></div>
+      </section>
+
+      <section id="page-goals" class="page">
+        <div class="page-intro"><p class="eyebrow">OLHE PARA FRENTE</p><h1>Minhas metas</h1><p class="muted">Acompanhe seus objetivos de 2027 e além.</p></div>
+        <form id="goalForm" class="panel form-grid">
+          <label>Qual é sua meta?<input id="goalTitle" required maxlength="100" placeholder="Ex.: Conseguir meu primeiro estágio"></label>
+          <div class="two-cols"><label>Prazo<input id="goalDate" type="date"></label><label>Categoria<select id="goalCategory"><option>Pessoal</option><option>Carreira</option><option>Financeira</option><option>Estudos</option><option>Saúde</option></select></label></div>
+          <button class="primary-btn" type="submit">＋ Criar meta</button>
+        </form>
+        <div id="goalList" class="stack"></div>
+      </section>
+
+      <section id="page-calendar" class="page">
+        <div class="page-intro"><p class="eyebrow">VISÃO DO MÊS</p><h1>Calendário</h1><p class="muted">Tarefas e lembretes organizados por data.</p></div>
+        <div class="panel calendar-panel">
+          <div class="calendar-head"><button id="prevMonth" class="round-btn" aria-label="Mês anterior">‹</button><h2 id="monthTitle"></h2><button id="nextMonth" class="round-btn" aria-label="Próximo mês">›</button></div>
+          <div class="calendar-grid weekday"><span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span></div>
+          <div id="calendarDays" class="calendar-grid"></div>
+          <p class="calendar-legend"><i></i> Dia com tarefa ou lembrete</p>
+        </div>
+        <div class="section-heading"><div><p class="eyebrow">DATA SELECIONADA</p><h2 id="selectedDateTitle">Agenda</h2></div></div>
+        <div id="dayAgenda" class="stack empty-state">Selecione um dia para ver os itens.</div>
+      </section>
+
+      <section id="page-reminders" class="page">
+        <div class="page-intro"><p class="eyebrow">FIQUE EM DIA</p><h1>Lembretes</h1><p class="muted">Registre vencimentos, pagamentos e compromissos.</p></div>
+        <form id="reminderForm" class="panel form-grid">
+          <label>O que você precisa lembrar?<input id="reminderTitle" required maxlength="100" placeholder="Ex.: Pagar IPVA"></label>
+          <div class="two-cols"><label>Data<input id="reminderDate" type="date" required></label><label>Tipo<select id="reminderType"><option>Pagamento</option><option>Documento</option><option>Compromisso</option><option>Outro</option></select></label></div>
+          <label class="check-label"><input id="reminderRepeat" type="checkbox"> Repetir mensalmente</label>
+          <button class="primary-btn" type="submit">＋ Salvar lembrete</button>
+        </form>
+        <div id="reminderList" class="stack"></div>
+        <p class="notice">Nota: nesta primeira versão, os lembretes ficam registrados no aplicativo. Alertas automáticos mesmo com o app fechado serão uma etapa adicional e precisam ser testados no Android.</p>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Navegação principal">
+      <button class="nav-item active" data-page="home"><span>⌂</span>Início</button>
+      <button class="nav-item" data-page="tasks"><span>✓</span>Tarefas</button>
+      <button class="nav-item" data-page="goals"><span>◎</span>Metas</button>
+      <button class="nav-item" data-page="calendar"><span>▦</span>Calendário</button>
+      <button class="nav-item" data-page="reminders"><span>♧</span>Lembretes</button>
+    </nav>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="./js/app.js"></script>
+  <script src="./js/tasks.js"></script>
+  <script src="./js/goals.js"></script>
+  <script src="./js/calendar.js"></script>
+  <script src="./js/reminders.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+JP MENESES WORKSPACE — PRIMEIRA VERSÃO PWA
+
+O que já funciona:
+- Navegação entre Início, Tarefas, Metas, Calendário e Lembretes.
+- Cadastro, conclusão, edição e exclusão de tarefas.
+- Cadastro e progresso de metas.
+- Calendário mensal com indicação de datas ocupadas.
+- Cadastro e exclusão de lembretes.
+- Dados guardados localmente neste navegador/dispositivo.
+- Manifest e Service Worker para instalação e cache offline.
+
+IMPORTANTE:
+1. O PWA precisa ser servido por HTTPS ou localhost. Abrir o index.html diretamente (file://) não ativa o Service Worker nem a instalação PWA.
+2. Para testar no computador, use uma extensão/servidor local ou hospede gratuitamente em um serviço HTTPS. Depois acesse o endereço no Chrome do Android.
+3. No Android, abra no Chrome e use o menu ⋮ > Instalar app ou Adicionar à tela inicial. O botão Instalar também pode aparecer quando o navegador permitir.
+4. Os dados ficam neste navegador/dispositivo. Limpar os dados do navegador pode apagá-los. Faça backup antes de trocar de aparelho.
+5. Esta primeira versão ainda não envia notificações agendadas confiáveis com o aplicativo fechado. Os lembretes ficam visíveis no app; notificações e sincronização online serão melhorias futuras.
+
+PRÓXIMA ETAPA:
+Hospedar a pasta em HTTPS para instalar no Android e testar. Depois estudaremos o código com calma.
